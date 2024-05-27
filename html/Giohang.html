@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/giohang.css">
+    <title>Thanh Toán</title>
+
+</head>
+<body>
+  
+    <div class="container">
+        <h1>Giỏ Hàng</h1>
+        <div id="items">
+            <div class="item1">
+                <img src="/img/1.jpg" width="100px" alt="AirPods">
+                <span>Tai Nghe Airpods 2 Rep 1:1     - 150,000 VND</span>
+                <button onclick="addItem('Airpods 2', 150000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+            <div class="item1">
+                <img src="/img/sp2/2.jpg" width="100px" alt="Airpods Pro">
+                <span>Tai Nghe Airpods Pro Rep 1:1 - 350,000 VND</span>
+                <button onclick="addItem('Airpods Pro', 350000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+            <div class="item1">
+                <img src="/img/sp3.jpg" width="100px" alt="charger">
+                <span>Sạc Nhanh Apple iPhone 20W - 550,000 VND</span>
+                <button onclick="addItem('Sạc Nhanh Apple', 550000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+            <div class="item1">
+                <img src="/img/sp4/1.jpg" width="100px" alt="Loa Bluetooth">
+                <span>Loa Bluetooth Borofone BR22 - 100,000 VND</span>
+                <button onclick="addItem('Loa Bluetooth', 100000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+            <div class="item1">
+                <img src="/img/sp5/1.webp" width="100px" alt="SDP">
+                <span>Sạc Dự Phòng Hoco J106A 10000mAh - 250,000 VND</span>
+                <button onclick="addItem('SDP', 250000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+            <div class="item1">
+                <img src="/img/sp6/1.jpg" width="100px" alt="Sạc Không Dây Hoco">
+                <span>Sạc Không Dây Hoco CW6 Pro 15w - 95,000 VND</span>
+                <button onclick="addItem('Sạc Không Dây Hoco', 95000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+            
+            <!-- <div class="item1">
+                <img src="/img/sp8/1.jpg" width="100px" alt="Watch">
+                <span>Đồng Hồ Thông Minh Hoco Y12 - 378,000 VND</span>
+                <button onclick="addItem('Hoco Y12', 378000)">Thêm Vào Giỏ Hàng</button>
+            </div> -->
+            <div class="item1">
+                <img src="/img/sp7/1.webp" width="100px" alt="Watch">
+                <span>Smart Watch - Watch 6 - 850,000 VND</span>
+                <button onclick="addItem('Smart Watch', 850000)">Thêm Vào Giỏ Hàng</button>
+            </div>
+        </div>
+        <h2>Thành Tiền</h2>
+        <ul id="cart"></ul>
+        <p>Tổng Tiền: <span id="totalAmount">0</span></p>
+        <button onclick="checkout()">Thanh Toán</button>
+        <button onclick="calculatePoints()">Tích Điểm</button>
+        <p>Tích điểm: <span id="totalPoints">1</span></p>
+    </div>
+<a class="home" href="trangchu.html">Trang Chủ</a>    
+<script>
+let cartItems = [];
+
+    function addItem(name, price) {
+    cartItems.push({ name, price });
+    updateCart();
+    updateTotalAmount();
+}
+
+function updateCart() {
+    const cartList = document.getElementById('cart');
+    cartList.innerHTML = '';
+
+    cartItems.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${item.name} - ${item.price} VND`;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Xóa';
+        deleteButton.addEventListener('click', () => {
+            removeItem(index);
+        });
+
+        listItem.appendChild(deleteButton);
+        cartList.appendChild(listItem);
+    });
+}
+
+function removeItem(index) {
+    cartItems.splice(index, 1); // Xóa mục hàng khỏi mảng cartItems
+    updateCart(); // Cập nhật lại danh sách giỏ hàng
+    updateTotalAmount(); // Cập nhật lại tổng tiền
+}
+        function updateTotalAmount() {
+            let totalAmount = 0;
+
+            cartItems.forEach(item => {
+                totalAmount += item.price;
+            });
+
+            const totalAmountDisplay = document.getElementById('totalAmount');
+            totalAmountDisplay.textContent = totalAmount.toLocaleString() + ' VND';
+        }
+
+        function calculatePoints() {
+            let totalPoints = 0;
+
+            cartItems.forEach(item => {
+                // Tính điểm dựa trên giá trị đơn hàng (mỗi 100,000 VND tích 1 điểm)
+                totalPoints += Math.floor(item.price / 100000);
+            });
+
+            const totalPointsDisplay = document.getElementById('totalPoints');
+            totalPointsDisplay.textContent = totalPoints;
+        }
+
+        function checkout() {
+            const totalAmount = document.getElementById('totalAmount').textContent;
+            const confirmMessage = `Bạn đã chọn thanh toán. Tổng tiền: ${totalAmount}`;
+            
+            if (confirm(confirmMessage)) {
+                window.location.href = 'formadr.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="../CSS/form.css"> 
+</head>     
+<body>
+    <header>
+        <h1>Đăng Nhập</h1>
+    </header>
+    <form action="submit.php" method="post" id="registrationForm">
+       
+        <label for="phone">Số điện thoại:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <p id="phone-error" style="color: red; display: none;">Số điện thoại không hợp lệ.</p>
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password" required>
+        <p id="password-error" style="color: red; display: none;">Mật khẩu phải có ít nhất 8 kí tự, in hoa, và kí tự đặc biệt.</p>
+        <button type="submit" id="submitButton" disabled>Đăng Nhập</button>
+        <button type="reset" value="Reset">Reset</button>
+    </form>
+    <div class="center">
+    <a href="trangchu.html"><button>Trang Chủ</button></a>
+    <a href="taotk.html"><button>Đăng Ký</button></a></div>
+    <div id="successMessage" style="display: none;">
+        <p>Đăng nhập thành công!</p>
+    </div>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+        var phoneInput = document.getElementById("phone");
+        var passwordInput = document.getElementById("password");
+        var submitButton = document.getElementById("submitButton");
+        var phoneErrorText = document.getElementById("phone-error");
+        var passwordErrorText = document.getElementById("password-error");
+        var successMessage = document.getElementById("successMessage");
+
+
+        phoneInput.addEventListener("input", function () {
+            validatePhone(phoneInput.value);
+        });
+
+        function validatePhone(phone) {
+            var phoneRegex = /^\d{10,}$/;
+            if (phoneRegex.test(phone)) {
+                phoneErrorText.style.display = "none";
+            } else {
+                phoneErrorText.style.display = "block";
+            }
+            checkFormValidity();
+        }
+
+        function validatePassword(password) {
+            var minLength = 8;
+            var hasUpperCase = /[A-Z]/.test(password);
+            var hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(password);
+
+            if (password.length >= minLength && hasUpperCase && hasSpecialChar) {
+                passwordErrorText.style.display = "none";
+            } else {
+                passwordErrorText.style.display = "block";
+            }
+            checkFormValidity();
+        }
+
+       
+        function checkFormValidity() {
+            if (
+                phoneErrorText.style.display === "none" &&
+                passwordErrorText.style.display === "none" 
+            ) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        }
+
+        passwordInput.addEventListener("input", function () {
+            validatePassword(passwordInput.value);
+        });
+
+
+        // Handling form submission
+        var registrationForm = document.getElementById("registrationForm");
+        registrationForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            
+           
+            setTimeout(function () {
+                successMessage.style.display = "block";
+                setTimeout(function () {
+                    
+                    window.location.href = "trangchu.html"; 
+                }, 3000);
+            }, 1000); 
+        });
+    });
+</script>
+</body>     
+</html>

@@ -1,0 +1,49 @@
+ul {
+    list-style: none; /* Ẩn dấu đầu dòng của danh sách */
+    padding: 0;
+}
+ul li {
+    margin-bottom: 15px; /* Khoảng cách giữa các mục danh sách */
+    background-color: #bfbfbf;
+}
+
+ul li a {
+    text-decoration: none; /* Ẩn gạch chân của liên kết */
+    color: #333; /* Màu chữ mặc định */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển đổi màu sắc trong 0.3 giây */
+}
+
+ul li a:hover {
+    color: #007bff; /* Màu chữ khi rê chuột lên liên kết */
+}
+.container {
+    display:flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 20%;
+    background-color: #bfbfbf;
+    padding: 20px;
+}
+
+#content {
+    width: 80%;
+    padding: 20px;
+    background-color: #fff;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 10px auto;
+}
+

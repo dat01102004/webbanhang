@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+input:read-only {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+.home {
+    display: inline-block;
+    padding: 10px 20px; 
+    margin: 20px;
+    font-size: 16px; 
+    text-decoration: none; 
+    color: #fff; 
+    background-color: #4e5257; 
+    border: 1px solid #007bff; 
+    border-radius: 5px; /* Độ cong góc nút */
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+.home:hover {
+    background-color: #0056b3; /* Màu nền khi di chuột qua */
+    border-color: #0056b3; /* Màu viền khi di chuột qua */
+}
+</style>
+<body>
+    <div class="container">
+        <h1>Thông Tin Đặt Hàng</h1>
+        <form id="checkoutForm">
+            <div class="form-group">
+                <label for="fullName">Họ và Tên:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Địa Chỉ Nhà:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Số Điện Thoại:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label for="promoCode">Mã Giảm Giá:</label>
+                <input type="text" id="promoCode" name="promoCode">
+            </div>
+            <div class="form-group">
+                <label for="shippingFee">Phí Giao Hàng:</label>
+                <select id="shippingFee" name="shippingFee">
+                    <option value="0">Chọn phí giao hàng</option>
+                    <option value="10000">Nội Thành - 10,000 VNĐ</option>
+                    <option value="30000">Ngoại Thành - 30,000 VNĐ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="totalAmount">Tổng Tiền:</label>
+                <input type="text" id="totalAmount" name="totalAmount" readonly>
+            </div>
+            <button type="button" onclick="calculateTotal()">Tính Tổng Tiền</button>
+            <button type="submit">Đặt Hàng</button>
+            
+        </form>
+        <a class="home" href="trangchu.html">Trang Chủ</a>    
+
+    </div>
+
+    <script>function calculateTotal() {
+        const shippingFee = parseInt(document.getElementById('shippingFee').value);
+        let totalAmount = 0;
+    
+        // Lấy giá trị phí giao hàng và cộng vào tổng tiền
+        totalAmount += shippingFee;
+    
+        // Hiển thị tổng tiền vào ô input readonly
+        document.getElementById('totalAmount').value = formatCurrency(totalAmount) + ' VNĐ';
+    }
+    
+    function formatCurrency(amount) {
+        return amount.toLocaleString();
+    }
+    
+    // Đăng ký sự kiện submit cho form
+    document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        // Lấy dữ liệu từ các ô input trong form
+        const fullName = document.getElementById('fullName').value;
+        const address = document.getElementById('address').value;
+        const phone = document.getElementById('phone').value;
+        const promoCode = document.getElementById('promoCode').value;
+        const shippingFee = document.getElementById('shippingFee').value;
+        const totalAmount = document.getElementById('totalAmount').value;
+    
+        // Hiển thị thông tin đặt hàng trong console
+        console.log('Họ và tên:', fullName);
+        console.log('Địa chỉ nhà:', address);
+        console.log('Số điện thoại:', phone);
+        console.log('Mã giảm giá:', promoCode);
+        console.log('Phí giao hàng:', shippingFee);
+        console.log('Tổng tiền:', totalAmount);
+    
+       
+    
+        // Reset form sau khi đặt hàng thành công (giả định)
+        this.reset();
+    });
+    </script>
+</body>
+</html>
